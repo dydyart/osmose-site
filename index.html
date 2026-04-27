@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osmose — Force de Vente Directe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F7F5;
+  --dark: #0B0B0D;
+  --dark2: #111115;
+  --text: #0F0F12;
+  --muted: #7A7A88;
+  --border: #E3E3E1;
+  --accent: #2457D9;
+  --accent-dim: rgba(36,87,217,0.1);
+  --accent-border: rgba(36,87,217,0.25);
+  --nav-h: 72px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;transition:background .4s ease,border-bottom .4s ease}
+nav.scrolled{background:rgba(11,11,13,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 48px;height:100%;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:1.5rem;font-weight:900;letter-spacing:-.05em;color:#FAFAFA;text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:40px;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;color:rgba(250,250,250,.65);text-decoration:none;letter-spacing:.01em;transition:color .2s ease}
+.nav-links a:hover{color:#FAFAFA}
+.btn-nav{display:inline-flex;align-items:center;padding:10px 22px;background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;text-decoration:none;border-radius:7px;border:none;cursor:pointer;transition:background .25s cubic-bezier(.16,1,.3,1),transform .15s ease}
+.btn-nav:hover{background:#1A3FBF}
+.btn-nav:active{transform:scale(.98) translateY(1px)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle span{display:block;width:24px;height:2px;background:#FAFAFA;border-radius:2px;transition:all .3s ease}
+.mob-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(11,11,13,.97);backdrop-filter:blur(16px);padding:20px 32px 28px;flex-direction:column;z-index:99;border-bottom:1px solid rgba(255,255,255,.05)}
+.mob-menu.open{display:flex}
+.mob-menu a{font-size:.95rem;font-weight:500;color:rgba(250,250,250,.75);text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:color .2s ease}
+.mob-menu a:hover{color:#FAFAFA}
+.mob-menu .btn-nav{margin-top:14px;justify-content:center}
+
+/* ── HERO ── */
+.hero{min-height:100dvh;background:var(--dark);display:grid;grid-template-columns:55% 45%;align-items:center;padding-top:var(--nav-h);position:relative;overflow:hidden}
+.hero-left{padding:80px 56px 80px 80px;position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(36,87,217,.1);border:1px solid rgba(36,87,217,.28);border-radius:100px;font-size:.73rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#7AABFF;margin-bottom:28px}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:dot-pulse 2s ease-in-out infinite}
+@keyframes dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+.hero-h1{font-size:clamp(2.4rem,4.2vw,4rem);font-weight:900;line-height:1.04;letter-spacing:-.05em;color:#F0F0F4;margin-bottom:24px;max-width:14ch;animation:fade-up .8s cubic-bezier(.16,1,.3,1) .1s both}
+.hero-h1 .hl{color:var(--accent)}
+@keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-sub{font-size:1rem;line-height:1.75;color:rgba(240,240,244,.5);max-width:44ch;margin-bottom:44px;animation:fade-up .8s cubic-bezier(.16,1,.3,1) .25s both}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;animation:fade-up .8s cubic-bezier(.16,1,.3,1) .35s both}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:700;text-decoration:none;border-radius:7px;border:none;cursor:pointer;transition:background .25s cubic-bezier(.16,1,.3,1),transform .15s ease}
+.btn-primary:hover{background:#1A3FBF}
+.btn-primary:active{transform:scale(.98) translateY(1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:transparent;color:rgba(240,240,244,.75);font-family:'Outfit',sans-serif;font-size:.875rem;font-weight:500;text-decoration:none;border-radius:7px;border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all .25s cubic-bezier(.16,1,.3,1)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.28);color:#FAFAFA;background:rgba(255,255,255,.04)}
+.btn-ghost:active{transform:scale(.98) translateY(1px)}
+.hero-scroll-hint{position:absolute;bottom:40px;left:80px;display:flex;align-items:center;gap:12px;color:rgba(240,240,244,.28);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.scroll-line{width:36px;height:1px;background:rgba(240,240,244,.15);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--accent);animation:scan 2.2s ease-in-out infinite}
+@keyframes scan{0%{left:-100%}100%{left:100%}}
+
+/* Hero right */
+.hero-right{height:100%;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.glow-ring{position:absolute;border-radius:50%;pointer-events:none}
+.glow-ring.r1{width:560px;height:560px;top:-80px;right:-80px;background:radial-gradient(circle,rgba(36,87,217,.18) 0%,transparent 68%);animation:float1 9s ease-in-out infinite}
+.glow-ring.r2{width:360px;height:360px;bottom:60px;right:25%;background:radial-gradient(circle,rgba(36,87,217,.12) 0%,transparent 68%);animation:float1 11s ease-in-out infinite 2s}
+@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.network-svg{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+/* Hero card */
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 20%,transparent 80%)}
+.hero-card{position:relative;z-index:2;width:300px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:30px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 40px 80px rgba(0,0,0,.5);animation:float1 6s ease-in-out infinite}
+.hcard-ring-wrap{position:relative;width:136px;height:136px;margin:0 auto 22px}
+.hcard-ring-wrap svg{width:100%;height:100%}
+.hcard-track{fill:none;stroke:rgba(255,255,255,.06);stroke-width:5}
+.hcard-arc{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:376;stroke-dashoffset:376;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 2s cubic-bezier(.16,1,.3,1)}
+.hcard-arc.animated{stroke-dashoffset:22}
+.hcard-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hcard-center-num{font-size:1.9rem;font-weight:900;color:#F0F0F4;letter-spacing:-.05em;line-height:1}
+.hcard-center-lbl{font-size:.68rem;color:rgba(240,240,244,.38);margin-top:3px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.hcard-divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:20px}
+.hcard-metrics{display:flex;justify-content:space-between;margin-bottom:20px}
+.hcard-metric{flex:1;text-align:center;padding:0 8px}
+.hcard-metric:not(:last-child){border-right:1px solid rgba(255,255,255,.06)}
+.hcard-mval{font-size:1.35rem;font-weight:900;color:#F0F0F4;letter-spacing:-.04em;line-height:1}
+.hcard-mlbl{font-size:.68rem;color:rgba(240,240,244,.32);margin-top:5px;line-height:1.3}
+.hcard-status{display:flex;align-items:center;gap:8px;padding:9px 13px;background:rgba(36,87,217,.1);border:1px solid rgba(36,87,217,.2);border-radius:8px}
+.hcard-status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:dot-pulse 2s ease-in-out infinite}
+.hcard-status span{font-size:.77rem;font-weight:600;color:rgba(240,240,244,.6);letter-spacing:.02em}
+
+/* ── STATS ── */
+.stats-bar{background:var(--dark2);border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);padding:52px 48px}
+.stats-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-item{padding:16px 36px;border-right:1px solid rgba(255,255,255,.06)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-size:2.6rem;font-weight:900;letter-spacing:-.05em;color:#F0F0F4;line-height:1}
+.stat-num .ac{color:var(--accent)}
+.stat-lbl{font-size:.82rem;color:rgba(240,240,244,.38);margin-top:5px;font-weight:400}
+
+/* ── COMMUN ── */
+section{padding:112px 48px}
+.s-inner{max-width:1400px;margin:0 auto}
+.s-tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.s-tag-light{color:#7AABFF}
+.s-h2{font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:800;letter-spacing:-.045em;line-height:1.1;color:var(--text);margin-bottom:18px}
+.s-h2-light{color:#F0F0F4}
+.s-p{font-size:.975rem;line-height:1.78;color:var(--muted);max-width:52ch}
+.s-p-light{color:rgba(240,240,244,.45)}
+
+/* ── QUI SOMMES-NOUS ── */
+#qui-sommes-nous{background:var(--bg)}
+.about-grid{display:grid;grid-template-columns:56% 44%;gap:80px;align-items:center}
+.values-list{margin-top:44px;display:flex;flex-direction:column}
+.val-item{display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--border);align-items:flex-start}
+.val-item:last-child{border-bottom:1px solid var(--border)}
+.val-icon{width:40px;height:40px;border-radius:8px;background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.val-icon svg{width:17px;height:17px;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.val-txt h4{font-size:.875rem;font-weight:700;color:var(--text);margin-bottom:3px;letter-spacing:-.01em}
+.val-txt p{font-size:.82rem;color:var(--muted);line-height:1.65}
+.about-img-wrap{position:relative}
+.about-img-wrap img{width:100%;height:470px;object-fit:cover;border-radius:14px;display:block}
+.about-badge{position:absolute;bottom:-20px;left:-20px;background:var(--dark);border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:14px 22px;box-shadow:0 20px 40px rgba(0,0,0,.2)}
+.badge-num{font-size:1.9rem;font-weight:900;color:#F0F0F4;letter-spacing:-.04em}
+.badge-num em{font-style:normal;color:var(--accent)}
+.badge-lbl{font-size:.75rem;color:rgba(240,240,244,.38);margin-top:1px}
+
+/* ── ENTREPRISE ── */
+#entreprise{background:var(--dark)}
+.ent-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:80px;align-items:start}
+.ent-cards{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.04);border-radius:14px;overflow:hidden}
+.e-card{background:var(--dark2);padding:30px;transition:background .3s ease}
+.e-card:hover{background:#1a1a1f}
+.e-icon{width:42px;height:42px;margin-bottom:14px;display:flex;align-items:center;justify-content:center}
+.e-icon svg{width:26px;height:26px;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.e-card h3{font-size:.95rem;font-weight:700;color:#F0F0F4;margin-bottom:7px;letter-spacing:-.02em}
+.e-card p{font-size:.82rem;color:rgba(240,240,244,.38);line-height:1.65}
+.e-card.wide{grid-column:span 2;display:flex;gap:24px;align-items:flex-start}
+.e-card.wide .e-icon{margin-bottom:0;flex-shrink:0;width:48px;height:48px}
+.e-card.wide .e-icon svg{width:28px;height:28px}
+
+/* ── RECRUTEMENT ── */
+#recrutement{background:var(--bg)}
+.recr-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start}
+.recr-left{}
+.recr-points{margin-top:40px;display:flex;flex-direction:column}
+.rp-item{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--border);align-items:flex-start}
+.rp-item:last-child{border-bottom:1px solid var(--border)}
+.rp-num{font-size:.72rem;font-weight:800;color:var(--accent);letter-spacing:.06em;min-width:28px;padding-top:2px}
+.rp-txt{font-size:.85rem;color:var(--muted);line-height:1.65}
+.rp-txt strong{color:var(--text);font-weight:700;display:block;margin-bottom:2px;font-size:.875rem}
+
+/* Formulaire candidature */
+.candidature-form{background:#FAFAFA;border:1px solid var(--border);border-radius:14px;padding:40px;box-shadow:0 4px 32px rgba(0,0,0,.06)}
+.form-title{font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-.03em;margin-bottom:6px}
+.form-subtitle{font-size:.85rem;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.form-group label{font-size:.78rem;font-weight:600;color:var(--text);letter-spacing:.02em}
+.form-group input,
+.form-group textarea,
+.form-group select{width:100%;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s ease;-webkit-appearance:none}
+.form-group input::placeholder,
+.form-group textarea::placeholder{color:#BBBBC5}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* Radio type candidature */
+.radio-group{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+.radio-label{font-size:.78rem;font-weight:600;color:var(--text);letter-spacing:.02em;margin-bottom:2px}
+.radio-options{display:flex;gap:10px}
+.radio-opt{display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:7px;cursor:pointer;transition:all .2s ease;flex:1;background:#fff}
+.radio-opt:has(input:checked){border-color:var(--accent);background:var(--accent-dim)}
+.radio-opt input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
+.radio-opt span{font-size:.85rem;font-weight:500;color:var(--text)}
+
+.btn-submit{width:100%;padding:14px 28px;background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;border:none;border-radius:7px;cursor:pointer;transition:background .25s cubic-bezier(.16,1,.3,1),transform .15s ease;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{background:#1A3FBF}
+.btn-submit:active{transform:scale(.98) translateY(1px)}
+.form-msg{display:none;margin-top:14px;padding:13px 16px;border-radius:7px;font-size:.85rem;text-align:center}
+.form-msg.ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22);color:#16a34a}
+.form-msg.err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);color:#dc2626}
+
+/* ── CONTACT ── */
+#contact{background:var(--dark2)}
+.contact-grid{display:grid;grid-template-columns:44% 56%;gap:80px;align-items:start}
+.c-details{margin-top:44px;display:flex;flex-direction:column}
+.c-item{display:flex;gap:14px;padding:18px 0;border-top:1px solid rgba(255,255,255,.06);align-items:flex-start}
+.c-item:last-child{border-bottom:1px solid rgba(255,255,255,.06)}
+.c-ico{width:38px;height:38px;flex-shrink:0;border:1px solid rgba(255,255,255,.08);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.c-ico svg{width:16px;height:16px;stroke:rgba(240,240,244,.45);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.c-lbl{font-size:.71rem;color:rgba(240,240,244,.32);text-transform:uppercase;letter-spacing:.09em;font-weight:700;margin-bottom:2px}
+.c-val{font-size:.875rem;color:rgba(240,240,244,.7)}
+.contact-form-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:36px}
+.cform-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.cform-group label{font-size:.78rem;font-weight:600;color:rgba(240,240,244,.55);letter-spacing:.02em}
+.cform-group input,
+.cform-group textarea{width:100%;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:#F0F0F4;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .25s ease,background .25s ease;-webkit-appearance:none}
+.cform-group input::placeholder,
+.cform-group textarea::placeholder{color:rgba(240,240,244,.2)}
+.cform-group input:focus,
+.cform-group textarea:focus{border-color:rgba(36,87,217,.5);background:rgba(36,87,217,.04)}
+.cform-group textarea{resize:vertical;min-height:110px}
+.cform-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn-csubmit{width:100%;padding:13px 28px;background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;border:none;border-radius:7px;cursor:pointer;transition:background .25s cubic-bezier(.16,1,.3,1),transform .15s ease;margin-top:6px}
+.btn-csubmit:hover{background:#1A3FBF}
+.btn-csubmit:active{transform:scale(.98) translateY(1px)}
+.cmsg{display:none;margin-top:14px;padding:13px 16px;border-radius:7px;font-size:.85rem;text-align:center}
+.cmsg.ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22);color:#4ade80}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding:44px 48px}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{font-size:1.2rem;font-weight:900;letter-spacing:-.05em;color:rgba(240,240,244,.75);text-decoration:none}
+.footer-links{display:flex;gap:28px;list-style:none}
+.footer-links a{font-size:.82rem;color:rgba(240,240,244,.3);text-decoration:none;transition:color .2s ease}
+.footer-links a:hover{color:rgba(240,240,244,.65)}
+.footer-copy{font-size:.78rem;color:rgba(240,240,244,.22)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .about-grid,.ent-grid,.contact-grid,.recr-grid{grid-template-columns:1fr;gap:48px}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .stat-item:nth-child(2){border-right:none}
+  .stat-item:nth-child(3),.stat-item:nth-child(4){border-top:1px solid rgba(255,255,255,.06)}
+  .footer-inner{flex-direction:column;gap:20px;text-align:center}
+  .footer-links{flex-wrap:wrap;justify-content:center}
+}
+@media(max-width:768px){
+  :root{--nav-h:64px}
+  .nav-links,.btn-nav{display:none}
+  .nav-toggle{display:flex}
+  .nav-inner{padding:0 24px}
+  .hero-left{padding:48px 24px 64px}
+  .hero-scroll-hint{left:24px}
+  section{padding:80px 24px}
+  .stats-bar{padding:40px 24px}
+  .stat-item{padding:14px 18px}
+  .ent-cards{grid-template-columns:1fr}
+  .e-card.wide{flex-direction:column;gap:14px}
+  .form-row,.cform-row{grid-template-columns:1fr}
+  .candidature-form{padding:28px 22px}
+  .contact-form-wrap{padding:26px 20px}
+  .about-img-wrap img{height:300px}
+  .radio-options{flex-direction:column}
+  footer{padding:36px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">OSMOSE</a>
+    <ul class="nav-links">
+      <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
+      <li><a href="#entreprise">Entreprise</a></li>
+      <li><a href="#recrutement">Recrutement</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#recrutement" class="btn-nav">Postuler</a>
+    <button class="nav-toggle" id="toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mob">
+  <a href="#qui-sommes-nous" onclick="closeMob()">Qui sommes-nous ?</a>
+  <a href="#entreprise" onclick="closeMob()">Entreprise</a>
+  <a href="#recrutement" onclick="closeMob()">Recrutement</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <a href="#recrutement" class="btn-nav" onclick="closeMob()">Postuler</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Vente Directe · Télécommunications
+    </div>
+    <h1 class="hero-h1">PRÊT À <span class="hl">EXCELLER</span> DANS LE MÉTIER DE VENTE DIRECTE ?</h1>
+    <p class="hero-sub">Osmose est une force de vente directe spécialisée dans les télécoms. Nous recrutons, formons et propulsons des commerciaux qui veulent aller loin — sans plafond de verre.</p>
+    <div class="hero-ctas">
+      <a href="#recrutement" class="btn-primary">
+        Postuler maintenant
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="#qui-sommes-nous" class="btn-ghost">Découvrir Osmose</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="glow-ring r1"></div>
+    <div class="glow-ring r2"></div>
+    <svg class="network-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs><filter id="glow"><feGaussianBlur stdDeviation="3" result="cb"/><feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <g stroke="rgba(36,87,217,.22)" stroke-width="1">
+        <line x1="120" y1="150" x2="300" y2="200"/><line x1="300" y1="200" x2="450" y2="120"/>
+        <line x1="300" y1="200" x2="280" y2="380"/><line x1="280" y1="380" x2="480" y2="340"/>
+        <line x1="280" y1="380" x2="150" y2="450"/><line x1="150" y1="450" x2="120" y2="150"/>
+        <line x1="450" y1="120" x2="480" y2="340"/><line x1="120" y1="150" x2="60" y2="300"/>
+        <line x1="60" y1="300" x2="150" y2="450"/><line x1="300" y1="200" x2="200" y2="80"/>
+        <line x1="200" y1="80" x2="450" y2="120"/>
+      </g>
+      <circle cx="300" cy="200" r="8" fill="rgba(36,87,217,.9)" filter="url(#glow)"/>
+      <circle cx="300" cy="200" r="16" fill="rgba(36,87,217,.15)">
+        <animate attributeName="r" values="16;24;16" dur="2.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".15;0;.15" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="120" cy="150" r="5.5" fill="rgba(36,87,217,.7)"/>
+      <circle cx="450" cy="120" r="5.5" fill="rgba(36,87,217,.7)"/>
+      <circle cx="280" cy="380" r="5.5" fill="rgba(36,87,217,.7)"/>
+      <circle cx="480" cy="340" r="4" fill="rgba(36,87,217,.5)"/>
+      <circle cx="150" cy="450" r="4" fill="rgba(36,87,217,.5)"/>
+      <circle cx="60" cy="300" r="3.5" fill="rgba(36,87,217,.4)"/>
+      <circle cx="200" cy="80" r="3.5" fill="rgba(36,87,217,.4)"/>
+      <circle cx="450" cy="120" r="13" fill="rgba(36,87,217,.1)">
+        <animate attributeName="r" values="13;19;13" dur="3.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values=".1;0;.1" dur="3.2s" repeatCount="indefinite"/>
+      </circle>
+      <path id="p1" d="M120 150 L300 200 L280 380" fill="none"/>
+      <circle r="3" fill="rgba(100,160,255,.85)"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
+      <path id="p2" d="M450 120 L300 200 L150 450" fill="none"/>
+      <circle r="2.5" fill="rgba(100,180,255,.7)"><animateMotion dur="4s" repeatCount="indefinite" begin="1.5s"><mpath href="#p2"/></animateMotion></circle>
+    </svg>
+    <div class="hero-grid-bg"></div>
+    <div class="hero-card">
+      <!-- Circular progress -->
+      <div class="hcard-ring-wrap">
+        <svg viewBox="0 0 120 120">
+          <circle class="hcard-track" cx="60" cy="60" r="52"/>
+          <circle class="hcard-arc" id="hcard-arc" cx="60" cy="60" r="52"/>
+        </svg>
+        <div class="hcard-center">
+          <div class="hcard-center-num" id="hcard-pct">94%</div>
+          <div class="hcard-center-lbl">satisfaction</div>
+        </div>
+      </div>
+      <div class="hcard-divider"></div>
+      <!-- Metrics -->
+      <div class="hcard-metrics">
+        <div class="hcard-metric">
+          <div class="hcard-mval" id="m1">0</div>
+          <div class="hcard-mlbl">Commerciaux formés</div>
+        </div>
+        <div class="hcard-metric">
+          <div class="hcard-mval" id="m2">0</div>
+          <div class="hcard-mlbl">Années terrain</div>
+        </div>
+        <div class="hcard-metric">
+          <div class="hcard-mval" id="m3">0</div>
+          <div class="hcard-mlbl">Partenaires</div>
+        </div>
+      </div>
+      <!-- Status -->
+      <div class="hcard-status">
+        <div class="hcard-status-dot"></div>
+        <span>Recrutement ouvert</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    Défiler
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num">500<span class="ac">+</span></div><div class="stat-lbl">Commerciaux formés</div></div>
+    <div class="stat-item reveal rd1"><div class="stat-num">8<span class="ac"> ans</span></div><div class="stat-lbl">d'expertise terrain</div></div>
+    <div class="stat-item reveal rd2"><div class="stat-num">12<span class="ac">+</span></div><div class="stat-lbl">Opérateurs partenaires</div></div>
+    <div class="stat-item reveal rd3"><div class="stat-num">94<span class="ac">%</span></div><div class="stat-lbl">Taux de satisfaction client</div></div>
+  </div>
+</div>
+
+<!-- QUI SOMMES-NOUS -->
+<section id="qui-sommes-nous">
+  <div class="s-inner">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="s-tag">Qui sommes-nous ?</div>
+        <h2 class="s-h2">Une équipe de terrain, au service de votre réussite</h2>
+        <p class="s-p">Osmose est née d'une conviction simple : la vente directe, bien exercée, est l'un des métiers les plus formateurs et rémunérateurs qui soit. Nous accompagnons nos commerciaux avec des formations solides, un encadrement humain et des outils performants pour exceller dans les télécommunications.</p>
+        <div class="values-list">
+          <div class="val-item reveal rd1">
+            <div class="val-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="val-txt"><h4>Excellence opérationnelle</h4><p>Nous formons nos équipes aux meilleures pratiques de la vente directe avec un standard d'excellence non négociable.</p></div>
+          </div>
+          <div class="val-item reveal rd2">
+            <div class="val-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="val-txt"><h4>Culture de la performance</h4><p>Chaque commercial est accompagné pour progresser, atteindre ses objectifs et évoluer vers des postes de management.</p></div>
+          </div>
+          <div class="val-item reveal rd3">
+            <div class="val-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="val-txt"><h4>Croissance continue</h4><p>Osmose évolue avec ses collaborateurs. L'ambition est ici encouragée et récompensée à sa juste valeur.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-img-wrap reveal rd2">
+        <img src="https://picsum.photos/seed/osmose-bureau/600/500" alt="Équipe Osmose"/>
+        <div class="about-badge">
+          <div class="badge-num">8<em>+</em></div>
+          <div class="badge-lbl">Années d'expertise télécoms</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENTREPRISE -->
+<section id="entreprise">
+  <div class="s-inner">
+    <div class="ent-grid">
+      <div class="reveal">
+        <div class="s-tag s-tag-light">Notre entreprise</div>
+        <h2 class="s-h2 s-h2-light">Un modèle taillé pour la performance</h2>
+        <p class="s-p s-p-light">Osmose opère au cœur du marché des télécommunications français. Notre structure agile nous permet d'intervenir rapidement, de former efficacement et de déployer des équipes commerciales performantes à grande échelle.</p>
+        <div style="margin-top:44px">
+          <a href="#recrutement" class="btn-primary">
+            Rejoindre l'aventure
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="ent-cards reveal rd1">
+        <div class="e-card">
+          <div class="e-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <h3>Formation intensive</h3>
+          <p>Programme complet dès l'intégration pour maîtriser les produits télécoms et les techniques de vente.</p>
+        </div>
+        <div class="e-card">
+          <div class="e-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <h3>Encadrement terrain</h3>
+          <p>Des managers expérimentés sur le terrain pour guider et faire progresser chaque commercial.</p>
+        </div>
+        <div class="e-card">
+          <div class="e-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Rémunération compétitive</h3>
+          <p>Commissions attractives, primes sur objectifs et bonus pour les meilleurs performers.</p>
+        </div>
+        <div class="e-card">
+          <div class="e-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
+          <h3>Évolution rapide</h3>
+          <p>Des opportunités réelles de progresser vers team leader, manager ou responsable de secteur.</p>
+        </div>
+        <div class="e-card wide">
+          <div class="e-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div><h3>Présence nationale</h3><p>Osmose intervient sur l'ensemble du territoire français avec des équipes déployées dans les principales agglomérations et zones résidentielles.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECRUTEMENT -->
+<section id="recrutement">
+  <div class="s-inner">
+    <div class="recr-grid">
+      <div class="reveal">
+        <div class="s-tag">Recrutement</div>
+        <h2 class="s-h2">Nos ambitions n'ont pas de limite</h2>
+        <p class="s-p">Osmose recrute en continu des commerciaux motivés. Aucune expérience requise — ce qui compte ici, c'est votre ambition et votre envie de construire une vraie carrière.</p>
+        <div class="recr-points">
+          <div class="rp-item">
+            <span class="rp-num">01</span>
+            <div class="rp-txt"><strong>Formation prise en charge</strong>Intégration complète avec accompagnement dès le premier jour.</div>
+          </div>
+          <div class="rp-item">
+            <span class="rp-num">02</span>
+            <div class="rp-txt"><strong>Rémunération déplafonnée</strong>Salaire fixe + commissions sans limite sur vos ventes.</div>
+          </div>
+          <div class="rp-item">
+            <span class="rp-num">03</span>
+            <div class="rp-txt"><strong>Évolution garantie</strong>Les meilleurs commerciaux deviennent team leaders en moins de 6 mois.</div>
+          </div>
+          <div class="rp-item">
+            <span class="rp-num">04</span>
+            <div class="rp-txt"><strong>Débutants bienvenus</strong>Nous formons des profils de tout horizon. Seule la motivation est obligatoire.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULAIRE CANDIDATURE -->
+      <div class="reveal rd2">
+        <div class="candidature-form">
+          <div class="form-title">Être rappelé par notre équipe</div>
+          <div class="form-subtitle">Remplissez ce formulaire et un responsable vous contacte sous 24h pour discuter de votre candidature.</div>
+
+          <form id="candForm" onsubmit="submitCand(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-fn">Prénom</label>
+                <input type="text" id="c-fn" placeholder="Jean" required>
+              </div>
+              <div class="form-group">
+                <label for="c-ln">Nom</label>
+                <input type="text" id="c-ln" placeholder="Dupont" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="c-tel">Téléphone</label>
+              <input type="tel" id="c-tel" placeholder="06 12 34 56 78" required>
+            </div>
+            <div class="form-group">
+              <label for="c-em">Email</label>
+              <input type="email" id="c-em" placeholder="jean.dupont@email.fr" required>
+            </div>
+            <div class="form-group">
+              <label for="c-ville">Ville</label>
+              <input type="text" id="c-ville" placeholder="Paris">
+            </div>
+
+            <div class="radio-group">
+              <div class="radio-label">Type de candidature</div>
+              <div class="radio-options">
+                <label class="radio-opt">
+                  <input type="radio" name="type-cand" value="poste" checked>
+                  <span>Sur un poste</span>
+                </label>
+                <label class="radio-opt">
+                  <input type="radio" name="type-cand" value="spontanee">
+                  <span>Candidature spontanée</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="c-msg">Parlez-nous de vous (optionnel)</label>
+              <textarea id="c-msg" placeholder="Votre parcours, vos motivations, vos disponibilités..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit" id="cBtn">
+              Demander à être rappelé
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.4a2 2 0 0 1 1.95-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </button>
+            <div class="form-msg ok" id="cOk">Votre demande a été envoyée. Un responsable vous contactera dans les 24h.</div>
+            <div class="form-msg err" id="cErr">Une erreur est survenue. Veuillez réessayer.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="s-inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="s-tag s-tag-light">Contact</div>
+        <h2 class="s-h2 s-h2-light">Parlons de votre projet</h2>
+        <p class="s-p s-p-light">Que vous souhaitiez postuler, obtenir des informations ou discuter d'un partenariat, notre équipe vous répond dans les 24h.</p>
+        <div class="c-details">
+          <div class="c-item">
+            <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.4a2 2 0 0 1 1.95-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><div class="c-lbl">Téléphone</div><div class="c-val">+33 1 XX XX XX XX</div></div>
+          </div>
+          <div class="c-item">
+            <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="c-lbl">Email</div><div class="c-val">contact@osmose-telecom.fr</div></div>
+          </div>
+          <div class="c-item">
+            <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="c-lbl">Adresse</div><div class="c-val">Paris, Île-de-France</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal rd2">
+        <div class="contact-form-wrap">
+          <form id="ctForm" onsubmit="submitContact(event)">
+            <div class="cform-row">
+              <div class="cform-group"><label for="ct-fn">Prénom</label><input type="text" id="ct-fn" placeholder="Jean" required></div>
+              <div class="cform-group"><label for="ct-ln">Nom</label><input type="text" id="ct-ln" placeholder="Dupont" required></div>
+            </div>
+            <div class="cform-group"><label for="ct-em">Email</label><input type="email" id="ct-em" placeholder="jean.dupont@email.fr" required></div>
+            <div class="cform-group"><label for="ct-msg">Message</label><textarea id="ct-msg" placeholder="Votre message..."></textarea></div>
+            <button type="submit" class="btn-csubmit" id="ctBtn">Envoyer le message</button>
+            <div class="cmsg ok" id="ctOk">Message envoyé. Nous vous répondrons dans les 24h.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">OSMOSE</a>
+    <ul class="footer-links">
+      <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
+      <li><a href="#entreprise">Entreprise</a></li>
+      <li><a href="#recrutement">Recrutement</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2025 Osmose. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script>
+// Hero card animations
+function countUp(el, target, suffix, duration) {
+  const start = performance.now();
+  const update = (now) => {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(ease * target) + suffix;
+    if (p < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('hcard-arc').classList.add('animated');
+    setTimeout(() => countUp(document.getElementById('m1'), 500, '+', 1600), 200);
+    setTimeout(() => countUp(document.getElementById('m2'), 8, ' ans', 1200), 400);
+    setTimeout(() => countUp(document.getElementById('m3'), 12, '+', 1000), 600);
+  }, 400);
+});
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, {passive: true});
+
+// Mobile menu
+const toggle = document.getElementById('toggle');
+const mob = document.getElementById('mob');
+let open = false;
+toggle.addEventListener('click', () => {
+  open = !open;
+  mob.classList.toggle('open', open);
+  const [a, b, c] = toggle.querySelectorAll('span');
+  if (open) {
+    a.style.transform = 'rotate(45deg) translate(5px,5px)';
+    b.style.opacity = '0';
+    c.style.transform = 'rotate(-45deg) translate(5px,-5px)';
+  } else {
+    [a,b,c].forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+});
+function closeMob() {
+  open = false;
+  mob.classList.remove('open');
+  toggle.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Formulaire candidature
+function submitCand(e) {
+  e.preventDefault();
+  const btn = document.getElementById('cBtn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  btn.style.opacity = '.65';
+  setTimeout(() => {
+    document.getElementById('cOk').style.display = 'block';
+    btn.innerHTML = 'Demande envoyée';
+    btn.style.background = 'rgba(34,197,94,.12)';
+    btn.style.color = '#16a34a';
+    btn.style.border = '1px solid rgba(34,197,94,.25)';
+  }, 1200);
+}
+
+// Formulaire contact
+function submitContact(e) {
+  e.preventDefault();
+  const btn = document.getElementById('ctBtn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+  btn.style.opacity = '.65';
+  setTimeout(() => {
+    document.getElementById('ctOk').style.display = 'block';
+    btn.textContent = 'Message envoyé';
+    btn.style.background = 'rgba(34,197,94,.12)';
+    btn.style.color = '#4ade80';
+    btn.style.border = '1px solid rgba(34,197,94,.3)';
+  }, 1200);
+}
+</script>
+</body>
+</html>
