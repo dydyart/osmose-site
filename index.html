@@ -143,6 +143,27 @@ section{padding:112px 48px}
 .e-card.wide .e-icon{margin-bottom:0;flex-shrink:0;width:48px;height:48px}
 .e-card.wide .e-icon svg{width:28px;height:28px}
 
+/* Entreprise 2e image */
+.ent-img-row{display:grid;grid-template-columns:1fr 1fr;border-radius:14px;overflow:hidden;margin-top:56px}
+.ent-img-row img{width:100%;height:360px;object-fit:cover;display:block}
+.ent-img-caption{background:#0d0d10;padding:48px;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.ent-img-quote{font-size:1.55rem;font-weight:800;color:#F0F0F4;letter-spacing:-.04em;line-height:1.25}
+.ent-img-quote em{font-style:normal;color:var(--accent)}
+.ent-img-detail{font-size:.875rem;color:rgba(240,240,244,.38);line-height:1.7}
+.ent-img-line{width:36px;height:2px;background:var(--accent)}
+
+/* ── PARTENAIRES ── */
+#partenaires{background:var(--bg)}
+.partner-header{text-align:center;margin-bottom:60px}
+.partner-header .s-tag{justify-content:center}
+.partner-h2{font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:800;letter-spacing:-.045em;line-height:1.1;color:var(--text);margin-bottom:16px}
+.partner-h2 span{color:var(--accent)}
+.partner-sub{font-size:.975rem;line-height:1.78;color:var(--muted);max-width:50ch;margin:0 auto}
+.partner-logos{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:52px}
+.partner-card{background:#FAFAFA;border:1px solid var(--border);border-radius:14px;padding:36px 52px;display:flex;align-items:center;justify-content:center;min-width:220px;min-height:130px;transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease}
+.partner-card:hover{border-color:rgba(36,87,217,.28);box-shadow:0 8px 32px rgba(36,87,217,.07);transform:translateY(-2px)}
+.partner-card img{max-width:150px;max-height:72px;object-fit:contain}
+
 /* ── RECRUTEMENT ── */
 #recrutement{background:var(--bg)}
 .recr-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start}
@@ -467,6 +488,38 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding
           <div class="e-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
           <div><h3>Présence nationale</h3><p>Osmose intervient sur l'ensemble du territoire français avec des équipes déployées dans les principales agglomérations et zones résidentielles.</p></div>
         </div>
+      </div>
+    </div>
+
+    <!-- 2e image -->
+    <div class="ent-img-row reveal">
+      <img src="https://picsum.photos/seed/osmose-field/800/400" alt="Équipe Osmose sur le terrain"/>
+      <div class="ent-img-caption">
+        <div class="ent-img-line"></div>
+        <div class="ent-img-quote">Des commerciaux formés pour <em>convaincre, fidéliser</em> et progresser.</div>
+        <div class="ent-img-detail">Chaque membre de l'équipe Osmose est accompagné par un manager dédié, avec des objectifs clairs, des outils concrets et une culture de la réussite collective ancrée dans le quotidien.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PARTENAIRES -->
+<section id="partenaires">
+  <div class="s-inner">
+    <div class="partner-header reveal">
+      <div class="s-tag">Nos partenaires</div>
+      <h2 class="partner-h2">Des partenaires <span>de référence</span></h2>
+      <p class="partner-sub">Osmose collabore avec les leaders des télécommunications en France pour distribuer leurs offres avec excellence et exigence.</p>
+    </div>
+    <div class="partner-logos">
+      <div class="partner-card reveal rd1">
+        <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/7/7e/SFR_logo.svg/200px-SFR_logo.svg.png" alt="SFR"
+             onerror="this.style.display='none';this.parentNode.innerHTML='<svg viewBox=\'0 0 120 60\' xmlns=\'http://www.w3.org/2000/svg\'><rect width=\'120\' height=\'60\' rx=\'8\' fill=\'#E2001A\'/><text x=\'60\' y=\'44\' text-anchor=\'middle\' font-family=\'Arial Black,sans-serif\' font-weight=\'900\' font-size=\'36\' fill=\'white\'>SFR</text></svg>'"/>
+      </div>
+      <div class="partner-card reveal rd2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Bouygues_Telecom_2016.svg/200px-Bouygues_Telecom_2016.svg.png" alt="Bouygues Telecom"
+             onerror="this.style.display='none';this.parentNode.innerHTML='<div style=\'text-align:center\'><div style=\'font-size:1.5rem;font-weight:900;color:#0087CD;letter-spacing:-.03em\'>bouygues</div><div style=\'font-size:.9rem;font-weight:600;color:#888;letter-spacing:.05em;text-transform:uppercase\'>telecom</div></div>'"/>
       </div>
     </div>
   </div>
