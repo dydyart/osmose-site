@@ -315,6 +315,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding
 .slot-btn{padding:11px 6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:rgba(240,240,244,.65);font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s ease;text-align:center}
 .slot-btn:hover{background:rgba(36,87,217,.14);border-color:rgba(36,87,217,.38);color:#F0F0F4}
 .slot-btn.selected{background:var(--accent);border-color:var(--accent);color:#fff}
+.slot-btn.slot-taken{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.04);color:rgba(240,240,244,.18);cursor:not-allowed;text-decoration:line-through;font-size:.75rem}
 .book-summary{background:rgba(36,87,217,.1);border:1px solid rgba(36,87,217,.28);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:.875rem;color:rgba(240,240,244,.6);line-height:1.7}
 .book-summary strong{color:#F0F0F4}
 .book-back{background:none;border:none;color:rgba(240,240,244,.28);font-family:'Outfit',sans-serif;font-size:.8rem;cursor:pointer;padding:4px 0;margin-top:6px;transition:color .2s ease;display:inline-block}
@@ -1014,35 +1015,57 @@ const DAYS_FR = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samed
 let bkDur=0, bkDate=null, bkSlot=null;
 let bkYear=new Date().getFullYear(), bkMonth=new Date().getMonth();
 
-function showBookStep(n) {
+// ── Gestion des créneaux réservés (localStorage) ──
+function getBookings(){
+  try{return JSON.parse(localStorage.getItem('osmose_bookings')||'[]');}catch(e){return[];}
+}
+function saveBooking(date,time,duration){
+  const b=getBookings();
+  b.push({date,time,duration});
+  localStorage.setItem('osmose_bookings',JSON.stringify(b));
+}
+function isSlotTaken(date,timeStr,dur){
+  const [hStr,mStr]=timeStr.split('h');
+  const sStart=parseInt(hStr)*60+parseInt(mStr||'0');
+  const sEnd=sStart+dur;
+  return getBookings().some(b=>{
+    if(b.date!==date)return false;
+    const [bh,bm]=b.time.split('h');
+    const bStart=parseInt(bh)*60+parseInt(bm||'0');
+    const bEnd=bStart+b.duration;
+    return sStart<bEnd&&sEnd>bStart;
+  });
+}
+
+function showBookStep(n){
   for(let i=1;i<=5;i++){
     document.getElementById('bp'+i).classList.toggle('hidden',i!==n);
     if(i<=4){
       const s=document.getElementById('bstep-'+i);
       s.classList.remove('active','done');
-      if(i===n) s.classList.add('active');
-      else if(i<n) s.classList.add('done');
+      if(i===n)s.classList.add('active');
+      else if(i<n)s.classList.add('done');
     }
   }
   document.getElementById('rdv').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function selectDur(mins,btn) {
+function selectDur(mins,btn){
   bkDur=mins;
   document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
   btn.classList.add('selected');
-  setTimeout(()=>{ showBookStep(2); renderCal(); },220);
+  setTimeout(()=>{showBookStep(2);renderCal();},220);
 }
 
-function changeMonth(d) {
+function changeMonth(d){
   bkMonth+=d;
   if(bkMonth<0){bkMonth=11;bkYear--;}
   if(bkMonth>11){bkMonth=0;bkYear++;}
   renderCal();
 }
 
-function renderCal() {
-  const today=new Date(); today.setHours(0,0,0,0);
+function renderCal(){
+  const today=new Date();today.setHours(0,0,0,0);
   document.getElementById('cal-month-lbl').textContent=MONTHS_FR[bkMonth]+' '+bkYear;
   const grid=document.getElementById('cal-days');
   grid.innerHTML='';
@@ -1084,11 +1107,19 @@ function renderSlots(){
   for(let min=9*60;min<18*60;min+=bkDur){
     const h=Math.floor(min/60),mn=min%60;
     const lbl=`${String(h).padStart(2,'0')}h${String(mn).padStart(2,'0')}`;
+    const taken=isSlotTaken(bkDate,lbl,bkDur);
     const btn=document.createElement('button');
-    btn.className='slot-btn';
     btn.type='button';
-    btn.textContent=lbl;
-    btn.onclick=()=>pickSlot(lbl,btn);
+    if(taken){
+      btn.className='slot-btn slot-taken';
+      btn.textContent=lbl;
+      btn.disabled=true;
+      btn.title='Créneau déjà réservé';
+    } else {
+      btn.className='slot-btn';
+      btn.textContent=lbl;
+      btn.onclick=()=>pickSlot(lbl,btn);
+    }
     grid.appendChild(btn);
   }
 }
@@ -1107,21 +1138,45 @@ function updateSummary(){
     `📅 <strong>${DAYS_FR[dateObj.getDay()]} ${d} ${MONTHS_FR[m-1]} ${y}</strong> &nbsp;·&nbsp; <strong>${bkSlot}</strong> &nbsp;·&nbsp; Appel de <strong>${bkDur} min</strong>`;
 }
 
-function submitBook(e){
+async function submitBook(e){
   e.preventDefault();
   const btn=document.getElementById('bBtn');
-  btn.textContent='Confirmation...';btn.disabled=true;btn.style.opacity='.7';
+  btn.textContent='Envoi en cours...';btn.disabled=true;btn.style.opacity='.7';
   const fn=document.getElementById('b-fn').value;
   const ln=document.getElementById('b-ln').value;
   const tel=document.getElementById('b-tel').value;
+  const em=document.getElementById('b-em').value;
   const [y,m,d]=bkDate.split('-');
   const dateObj=new Date(y,m-1,d);
-  setTimeout(()=>{
-    document.getElementById('confirm-body').innerHTML=
-      `Bonjour <strong>${fn} ${ln}</strong>,<br>votre appel de <strong>${bkDur} min</strong> est réservé le<br><strong>${DAYS_FR[dateObj.getDay()]} ${d} ${MONTHS_FR[m-1]} ${y} à ${bkSlot}</strong>.<br><br>Nous vous appellerons au <strong>${tel}</strong>.`;
-    btn.textContent='Confirmer ma réservation';btn.disabled=false;btn.style.opacity='1';
-    showBookStep(5);
-  },900);
+  const dateLabel=`${DAYS_FR[dateObj.getDay()]} ${d} ${MONTHS_FR[m-1]} ${y}`;
+
+  // Bloquer le créneau immédiatement
+  saveBooking(bkDate,bkSlot,bkDur);
+
+  // Envoyer par email via FormSubmit
+  try {
+    await fetch('https://formsubmit.co/ajax/jddjdhdw@gmail.com',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        _subject:`🗓 Réservation Osmose — ${dateLabel} à ${bkSlot}`,
+        Prénom: fn,
+        Nom: ln,
+        Téléphone: tel,
+        Email: em||'Non renseigné',
+        Date: dateLabel,
+        Heure: bkSlot,
+        Durée: bkDur+' minutes',
+        _captcha:'false',
+        _template:'table'
+      })
+    });
+  } catch(err){console.warn('Email error:',err);}
+
+  document.getElementById('confirm-body').innerHTML=
+    `Bonjour <strong>${fn} ${ln}</strong>,<br>votre appel de <strong>${bkDur} min</strong> est réservé le<br><strong>${dateLabel} à ${bkSlot}</strong>.<br><br>Nous vous appellerons au <strong>${tel}</strong>.`;
+  btn.textContent='Confirmer ma réservation';btn.disabled=false;btn.style.opacity='1';
+  showBookStep(5);
 }
 
 function resetBooking(){
