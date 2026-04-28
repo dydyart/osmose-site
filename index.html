@@ -276,6 +276,56 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding
 .footer-legal a{font-size:.76rem;color:rgba(240,240,244,.2);text-decoration:none;transition:color .2s ease}
 .footer-legal a:hover{color:rgba(240,240,244,.55)}
 
+/* ── BOOKING CALENDAR ── */
+#rdv{background:var(--dark)}
+.rdv-header{text-align:center;margin-bottom:52px}
+.rdv-header .s-tag{justify-content:center}
+.book-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:48px;max-width:660px;margin:0 auto}
+.book-stepper{display:flex;align-items:center;margin-bottom:40px}
+.bstep{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:.68rem;font-weight:700;color:rgba(240,240,244,.2);letter-spacing:.07em;text-transform:uppercase;transition:color .3s ease;flex:1}
+.bstep span{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;background:rgba(255,255,255,.04);transition:all .3s ease}
+.bstep.active{color:var(--accent)}.bstep.active span{background:var(--accent);border-color:var(--accent);color:#fff}
+.bstep.done{color:rgba(240,240,244,.4)}.bstep.done span{background:rgba(36,87,217,.18);border-color:rgba(36,87,217,.5);color:#7AABFF}
+.bstep-line{flex:1;height:1px;background:rgba(255,255,255,.07);margin-bottom:18px}
+.bp{display:block}.bp.hidden{display:none}
+.bp-title{font-size:1rem;font-weight:700;color:#F0F0F4;margin-bottom:24px;letter-spacing:-.02em}
+.dur-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px}
+.dur-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:26px 22px;cursor:pointer;text-align:left;transition:all .25s ease;font-family:'Outfit',sans-serif}
+.dur-btn:hover,.dur-btn:focus{border-color:rgba(36,87,217,.45);background:rgba(36,87,217,.08);outline:none}
+.dur-btn.selected{border-color:var(--accent);background:rgba(36,87,217,.14)}
+.dur-icon{font-size:1.5rem;margin-bottom:10px}
+.dur-label{font-size:1rem;font-weight:800;color:#F0F0F4;margin-bottom:5px}
+.dur-desc{font-size:.78rem;color:rgba(240,240,244,.35);line-height:1.55}
+.cal-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:22px;margin-bottom:20px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cal-month-lbl{font-size:.92rem;font-weight:700;color:#F0F0F4}
+.cal-nav-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:#F0F0F4;width:34px;height:34px;cursor:pointer;font-size:.95rem;transition:background .2s ease;font-family:'Outfit',sans-serif;display:flex;align-items:center;justify-content:center}
+.cal-nav-btn:hover{background:rgba(255,255,255,.12)}
+.cal-wdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:6px}
+.cal-wdays div{text-align:center;font-size:.65rem;font-weight:700;color:rgba(240,240,244,.22);letter-spacing:.07em;text-transform:uppercase;padding:4px 0}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cday{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:.84rem;font-weight:500;cursor:pointer;color:rgba(240,240,244,.75);transition:all .2s ease;border:1px solid transparent;user-select:none}
+.cday:hover:not(.dis):not(.empty):not(.wknd){background:rgba(36,87,217,.18);border-color:rgba(36,87,217,.35);color:#F0F0F4}
+.cday.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cday.today:not(.sel){border-color:rgba(36,87,217,.45);color:#7AABFF}
+.cday.dis{color:rgba(240,240,244,.13);cursor:not-allowed}
+.cday.wknd{color:rgba(240,240,244,.15);cursor:not-allowed}
+.cday.empty{cursor:default}
+.slots-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;max-height:280px;overflow-y:auto}
+.slot-btn{padding:11px 6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;color:rgba(240,240,244,.65);font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s ease;text-align:center}
+.slot-btn:hover{background:rgba(36,87,217,.14);border-color:rgba(36,87,217,.38);color:#F0F0F4}
+.slot-btn.selected{background:var(--accent);border-color:var(--accent);color:#fff}
+.book-summary{background:rgba(36,87,217,.1);border:1px solid rgba(36,87,217,.28);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:.875rem;color:rgba(240,240,244,.6);line-height:1.7}
+.book-summary strong{color:#F0F0F4}
+.book-back{background:none;border:none;color:rgba(240,240,244,.28);font-family:'Outfit',sans-serif;font-size:.8rem;cursor:pointer;padding:4px 0;margin-top:6px;transition:color .2s ease;display:inline-block}
+.book-back:hover{color:rgba(240,240,244,.6)}
+.book-confirm{text-align:center;padding:24px 0 8px}
+.confirm-ico{width:60px;height:60px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.28);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.confirm-ico svg{width:26px;height:26px;stroke:#4ade80;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.confirm-title{font-size:1.5rem;font-weight:800;color:#F0F0F4;margin-bottom:12px;letter-spacing:-.04em}
+.confirm-body{font-size:.9rem;color:rgba(240,240,244,.45);line-height:1.8}
+@media(max-width:768px){.book-wrap{padding:28px 20px}.dur-grid{grid-template-columns:1fr}.slots-grid{grid-template-columns:repeat(3,1fr)}.bstep{font-size:0}}
+
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:translateY(0)}
@@ -326,7 +376,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding
       <li><a href="#recrutement">Recrutement</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#recrutement" class="btn-nav">Postuler</a>
+    <a href="#rdv" class="btn-nav">Réserver un appel</a>
     <button class="nav-toggle" id="toggle" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -339,7 +389,7 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding
   <a href="#entreprise" onclick="closeMob()">Entreprise</a>
   <a href="#recrutement" onclick="closeMob()">Recrutement</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
-  <a href="#recrutement" class="btn-nav" onclick="closeMob()">Postuler</a>
+  <a href="#rdv" class="btn-nav" onclick="closeMob()">Réserver un appel</a>
 </div>
 
 <!-- HERO -->
@@ -705,6 +755,116 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding
   </div>
 </section>
 
+<!-- CALENDRIER RDV -->
+<section id="rdv">
+  <div class="s-inner">
+    <div class="rdv-header reveal">
+      <div class="s-tag s-tag-light">Réserver un appel</div>
+      <h2 class="s-h2 s-h2-light">Choisissez votre créneau</h2>
+      <p class="s-p s-p-light">Un responsable Osmose vous appelle directement à l'heure choisie. Sélectionnez la durée, la date et le créneau qui vous convient.</p>
+    </div>
+    <div class="book-wrap reveal rd1">
+
+      <!-- Stepper -->
+      <div class="book-stepper">
+        <div class="bstep active" id="bstep-1"><span>1</span>Durée</div>
+        <div class="bstep-line"></div>
+        <div class="bstep" id="bstep-2"><span>2</span>Date</div>
+        <div class="bstep-line"></div>
+        <div class="bstep" id="bstep-3"><span>3</span>Créneau</div>
+        <div class="bstep-line"></div>
+        <div class="bstep" id="bstep-4"><span>4</span>Infos</div>
+      </div>
+
+      <!-- Étape 1 : Durée -->
+      <div class="bp" id="bp1">
+        <div class="bp-title">Quelle durée pour votre appel ?</div>
+        <div class="dur-grid">
+          <button class="dur-btn" onclick="selectDur(15,this)">
+            <div class="dur-icon">⚡</div>
+            <div class="dur-label">15 minutes</div>
+            <div class="dur-desc">Rapide et direct — découverte et questions</div>
+          </button>
+          <button class="dur-btn" onclick="selectDur(30,this)">
+            <div class="dur-icon">🎯</div>
+            <div class="dur-label">30 minutes</div>
+            <div class="dur-desc">Entretien complet — candidature et projet</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Étape 2 : Calendrier -->
+      <div class="bp hidden" id="bp2">
+        <div class="bp-title">Choisissez une date</div>
+        <div class="cal-wrap">
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="changeMonth(-1)">&#8592;</button>
+            <span class="cal-month-lbl" id="cal-month-lbl"></span>
+            <button class="cal-nav-btn" onclick="changeMonth(1)">&#8594;</button>
+          </div>
+          <div class="cal-wdays">
+            <div>Lun</div><div>Mar</div><div>Mer</div><div>Jeu</div><div>Ven</div><div>Sam</div><div>Dim</div>
+          </div>
+          <div class="cal-days" id="cal-days"></div>
+        </div>
+        <button class="book-back" onclick="showBookStep(1)">&#8592; Retour</button>
+      </div>
+
+      <!-- Étape 3 : Créneaux -->
+      <div class="bp hidden" id="bp3">
+        <div class="bp-title" id="bp3-title">Choisissez un créneau</div>
+        <div class="slots-grid" id="slots-grid"></div>
+        <button class="book-back" onclick="showBookStep(2)">&#8592; Retour</button>
+      </div>
+
+      <!-- Étape 4 : Formulaire -->
+      <div class="bp hidden" id="bp4">
+        <div class="book-summary" id="book-summary"></div>
+        <form id="bookForm" onsubmit="submitBook(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="b-fn">Prénom *</label>
+              <input type="text" id="b-fn" placeholder="Jean" required>
+            </div>
+            <div class="form-group">
+              <label for="b-ln">Nom *</label>
+              <input type="text" id="b-ln" placeholder="Dupont" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="b-tel">Téléphone *</label>
+            <input type="tel" id="b-tel" placeholder="06 12 34 56 78" required>
+          </div>
+          <div class="form-group">
+            <label for="b-em">Email (optionnel)</label>
+            <input type="email" id="b-em" placeholder="jean.dupont@email.fr">
+          </div>
+          <button type="submit" class="btn-submit" id="bBtn">
+            Confirmer ma réservation
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </form>
+        <button class="book-back" onclick="showBookStep(3)">&#8592; Retour</button>
+      </div>
+
+      <!-- Étape 5 : Confirmation -->
+      <div class="bp hidden" id="bp5">
+        <div class="book-confirm">
+          <div class="confirm-ico">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="confirm-title">Réservation confirmée !</div>
+          <div class="confirm-body" id="confirm-body"></div>
+          <button class="btn-submit" onclick="resetBooking()" style="margin-top:28px;width:auto;padding:12px 28px">
+            Nouvelle réservation
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="s-inner">
@@ -848,6 +1008,129 @@ function submitCand(e) {
   }, 1200);
 }
 
+// ── BOOKING CALENDAR ──
+const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const DAYS_FR = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+let bkDur=0, bkDate=null, bkSlot=null;
+let bkYear=new Date().getFullYear(), bkMonth=new Date().getMonth();
+
+function showBookStep(n) {
+  for(let i=1;i<=5;i++){
+    document.getElementById('bp'+i).classList.toggle('hidden',i!==n);
+    if(i<=4){
+      const s=document.getElementById('bstep-'+i);
+      s.classList.remove('active','done');
+      if(i===n) s.classList.add('active');
+      else if(i<n) s.classList.add('done');
+    }
+  }
+  document.getElementById('rdv').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function selectDur(mins,btn) {
+  bkDur=mins;
+  document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  setTimeout(()=>{ showBookStep(2); renderCal(); },220);
+}
+
+function changeMonth(d) {
+  bkMonth+=d;
+  if(bkMonth<0){bkMonth=11;bkYear--;}
+  if(bkMonth>11){bkMonth=0;bkYear++;}
+  renderCal();
+}
+
+function renderCal() {
+  const today=new Date(); today.setHours(0,0,0,0);
+  document.getElementById('cal-month-lbl').textContent=MONTHS_FR[bkMonth]+' '+bkYear;
+  const grid=document.getElementById('cal-days');
+  grid.innerHTML='';
+  const firstDow=new Date(bkYear,bkMonth,1).getDay();
+  const offset=firstDow===0?6:firstDow-1;
+  const total=new Date(bkYear,bkMonth+1,0).getDate();
+  for(let i=0;i<offset;i++){const e=document.createElement('div');e.className='cday empty';grid.appendChild(e);}
+  for(let d=1;d<=total;d++){
+    const date=new Date(bkYear,bkMonth,d);
+    const dow=date.getDay();
+    const el=document.createElement('div');
+    el.className='cday';
+    el.textContent=d;
+    const ds=`${bkYear}-${String(bkMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    if(date<today){el.classList.add('dis');}
+    else if(dow===0||dow===6){el.classList.add('wknd');}
+    else{
+      if(ds===bkDate)el.classList.add('sel');
+      if(date.toDateString()===today.toDateString())el.classList.add('today');
+      el.onclick=()=>pickDate(ds,el);
+    }
+    grid.appendChild(el);
+  }
+}
+
+function pickDate(ds,el){
+  bkDate=ds;
+  document.querySelectorAll('.cday').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  setTimeout(()=>{showBookStep(3);renderSlots();},220);
+}
+
+function renderSlots(){
+  const [y,m,d]=bkDate.split('-');
+  const dateObj=new Date(y,m-1,d);
+  document.getElementById('bp3-title').textContent=`Créneaux — ${DAYS_FR[dateObj.getDay()]} ${d} ${MONTHS_FR[m-1]}`;
+  const grid=document.getElementById('slots-grid');
+  grid.innerHTML='';
+  for(let min=9*60;min<18*60;min+=bkDur){
+    const h=Math.floor(min/60),mn=min%60;
+    const lbl=`${String(h).padStart(2,'0')}h${String(mn).padStart(2,'0')}`;
+    const btn=document.createElement('button');
+    btn.className='slot-btn';
+    btn.type='button';
+    btn.textContent=lbl;
+    btn.onclick=()=>pickSlot(lbl,btn);
+    grid.appendChild(btn);
+  }
+}
+
+function pickSlot(time,btn){
+  bkSlot=time;
+  document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  setTimeout(()=>{showBookStep(4);updateSummary();},220);
+}
+
+function updateSummary(){
+  const [y,m,d]=bkDate.split('-');
+  const dateObj=new Date(y,m-1,d);
+  document.getElementById('book-summary').innerHTML=
+    `📅 <strong>${DAYS_FR[dateObj.getDay()]} ${d} ${MONTHS_FR[m-1]} ${y}</strong> &nbsp;·&nbsp; <strong>${bkSlot}</strong> &nbsp;·&nbsp; Appel de <strong>${bkDur} min</strong>`;
+}
+
+function submitBook(e){
+  e.preventDefault();
+  const btn=document.getElementById('bBtn');
+  btn.textContent='Confirmation...';btn.disabled=true;btn.style.opacity='.7';
+  const fn=document.getElementById('b-fn').value;
+  const ln=document.getElementById('b-ln').value;
+  const tel=document.getElementById('b-tel').value;
+  const [y,m,d]=bkDate.split('-');
+  const dateObj=new Date(y,m-1,d);
+  setTimeout(()=>{
+    document.getElementById('confirm-body').innerHTML=
+      `Bonjour <strong>${fn} ${ln}</strong>,<br>votre appel de <strong>${bkDur} min</strong> est réservé le<br><strong>${DAYS_FR[dateObj.getDay()]} ${d} ${MONTHS_FR[m-1]} ${y} à ${bkSlot}</strong>.<br><br>Nous vous appellerons au <strong>${tel}</strong>.`;
+    btn.textContent='Confirmer ma réservation';btn.disabled=false;btn.style.opacity='1';
+    showBookStep(5);
+  },900);
+}
+
+function resetBooking(){
+  bkDur=0;bkDate=null;bkSlot=null;
+  bkYear=new Date().getFullYear();bkMonth=new Date().getMonth();
+  document.getElementById('bookForm').reset();
+  document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('selected'));
+  showBookStep(1);
+}
 </script>
 </body>
 </html>
