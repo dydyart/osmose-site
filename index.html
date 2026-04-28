@@ -158,7 +158,9 @@ section{padding:112px 48px}
 .partner-logos{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:52px}
 .partner-card{background:#FAFAFA;border:1px solid var(--border);border-radius:14px;padding:36px 52px;display:flex;align-items:center;justify-content:center;min-width:220px;min-height:130px;transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease}
 .partner-card:hover{border-color:rgba(36,87,217,.28);box-shadow:0 8px 32px rgba(36,87,217,.07);transform:translateY(-2px)}
-.partner-card img{max-width:150px;max-height:72px;object-fit:contain}
+.logo-sfr{height:72px;width:auto;border-radius:6px;object-fit:contain}
+.logo-bouygues-clip{height:72px;width:72px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.logo-bouygues-clip img{height:168px;width:auto;flex-shrink:0}
 
 /* ── PROCESS STEPS ── */
 #process{background:var(--dark)}
@@ -526,10 +528,12 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.04);padding
     </div>
     <div class="partner-logos">
       <div class="partner-card reveal rd1">
-        <img src="IMG SFR.jpg" alt="SFR" style="height:80px;width:auto;object-fit:contain;border-radius:8px">
+        <img src="IMG SFR.jpg" alt="SFR" class="logo-sfr">
       </div>
       <div class="partner-card reveal rd2">
-        <img src="logo bouygues.png" alt="Bouygues Telecom" style="height:80px;width:auto;object-fit:contain">
+        <div class="logo-bouygues-clip">
+          <img src="logo bouygues.png" alt="Bouygues Telecom">
+        </div>
       </div>
     </div>
   </div>
