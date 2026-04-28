@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 430">
+  <!-- Top oval cyan — horizontal, above center -->
+  <ellipse cx="200" cy="82" rx="100" ry="46" fill="#00AEEF"/>
+
+  <!-- Lower-left oval dark blue — rotated -60° around its own center -->
+  <ellipse cx="130" cy="200" rx="100" ry="46" fill="#1B3B9E"
+           transform="rotate(-60 130 200)"/>
+
+  <!-- Lower-right oval orange — rotated +60° around its own center -->
+  <ellipse cx="270" cy="200" rx="100" ry="46" fill="#E8601C"
+           transform="rotate(60 270 200)"/>
+
+  <!-- bouygues text -->
+  <text
+    x="200" y="318"
+    text-anchor="middle"
+    font-family="Arial Rounded MT Bold, Arial, Helvetica, sans-serif"
+    font-weight="800"
+    font-size="66"
+    fill="#00AEEF">bouygues</text>
+
+  <!-- TELECOM text -->
+  <text
+    x="200" y="385"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-weight="400"
+    font-size="32"
+    fill="#00AEEF"
+    letter-spacing="8">TELECOM</text>
+</svg>
