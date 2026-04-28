@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/skills/taste-skill/SKILL.md\" -o \"/c/Users/vegas/Downloads/SITES CLAUDE GITHUB/SITE TEST/taste-SKILL.md\")",
+      "PowerShell(cd \"C:/Users/vegas/Downloads/SITES CLAUDE GITHUB/SITE TEST\"; [System.IO.File]::WriteAllText\\(\"pages.json\", '{\"source\":{\"branch\":\"master\",\"path\":\"/\"}}', [System.Text.Encoding]::UTF8\\); gh api repos/dydyart/osmose-site/pages --method POST --input pages.json; Remove-Item pages.json)",
+      "Bash(gh api *)",
+      "WebFetch(domain:osmose-sales-pulse.base44.app)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(dir \"C:\\\\Users\\\\vegas\\\\Downloads\\\\SITES CLAUDE GITHUB\\\\SITE TEST\" /b)",
+      "Bash(dir \"C:\\\\Users\\\\vegas\\\\Downloads\\\\SITES CLAUDE GITHUB\\\\SITE TEST\")",
+      "Bash(python -m pip install pillow -q)",
+      "Bash(python -c ' *)"
+    ]
+  }
+}
